@@ -1,6 +1,8 @@
 FROM php:8.2-fpm
 
-RUN docker-php-ext-install Ctype
+RUN apt-get update && apt-get install -y libpq-dev
+RUN docker-php-ext-install pdo_pgsql && docker-php-ext-enable pdo_pgsql
+RUN docker-php-ext-install pgsql && docker-php-ext-enable pgsql
 
 #Расширение PHP Ctype
 #Расширение PHP cURL
