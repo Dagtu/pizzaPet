@@ -17,6 +17,5 @@ Route::prefix('product')
         Route::get('/get-list-admin', 'getAdminList')->name('product.list.admin');
         Route::post('/create-product', 'createProduct')->name('product.create');
         Route::put('/update-product', 'updateProduct')->name('product.update.put');
-        Route::patch('/update-product', 'updateProduct')->name('product.update.patch');
         Route::delete('/delete-product', 'deleteProduct')->name('product.delete');
     });
