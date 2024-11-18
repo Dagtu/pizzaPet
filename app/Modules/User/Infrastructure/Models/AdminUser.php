@@ -18,7 +18,7 @@ class AdminUser extends Authenticatable
         'email',
         'password',
         'role',
-        'isActive'
+        'is_active'
     ];
 
     protected $guarded = [

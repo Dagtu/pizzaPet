@@ -16,15 +16,16 @@ class ProductsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->seed(ProductsSeeder::class);
+        $this->artisan('migrate:fresh');
     }
 
     public function test_get_products_client_when_has_products(): void
     {
-        $response = $this->get(route('product.list.client'));
+        $this->seed(ProductsSeeder::class);
 
-        $response->assertStatus(200);
+        $response = $this->getJson(route('product.list.client'));
+
+        $response->assertOk();
         $response->assertJsonStructure([
             '*' => [
                 'id',
@@ -40,17 +41,19 @@ class ProductsTest extends TestCase
 
     public function test_get_products_client_when_has_no_products(): void
     {
-        $response = $this->get(route('product.list.client'));
+        $response = $this->getJson(route('product.list.client'));
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $response->assertJsonCount(0);
     }
 
     public function test_get_product_by_id_when_exists(): void
     {
-        $response = $this->get(route('product.get', ['id' => 1]));
+        $this->seed(ProductsSeeder::class);
 
-        $response->assertStatus(200);
+        $response = $this->getJson(route('product.get.by.id', ['id' => 1]));
+
+        $response->assertOk();
         $response->assertJsonStructure([
             'id',
             'name',
@@ -64,20 +67,24 @@ class ProductsTest extends TestCase
 
     public function test_get_product_by_id_when_not_exists(): void
     {
-        $response = $this->get(route('product.get', ['id' => 100]));
+        $response = $this->getJson(route('product.get.by.id', ['id' => 100]));
 
         $response->assertStatus(404);
-        $response->assertJson(['message' => 'Product not found']);
+        $response->assertJson([
+            'message' => 'Product not found'
+        ]);
     }
 
     public function test_get_products_admin_when_has_products(): void
     {
+        $this->seed(ProductsSeeder::class);
+
         $adminUser = AdminUser::factory()->create();
         Sanctum::actingAs($adminUser, ['admin']);
 
-        $response = $this->get(route('product.list.admin'));
+        $response = $this->getJson(route('product.list.admin'));
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $response->assertJsonStructure([
             '*' => [
                 'id',
@@ -116,9 +123,9 @@ class ProductsTest extends TestCase
         $adminUser = AdminUser::factory()->create();
         Sanctum::actingAs($adminUser, ['admin']);
 
-        $response = $this->get(route('product.list.admin'));
+        $response = $this->getJson(route('product.list.admin'));
 
-        $response->assertStatus(200);
+        $response->assertOk();
         $response->assertJsonCount(0);
     }
 
@@ -127,7 +134,7 @@ class ProductsTest extends TestCase
         $adminUser = AdminUser::factory()->create();
         Sanctum::actingAs($adminUser, ['admin']);
 
-        $response = $this->post(route('product.create'), [
+        $response = $this->postJson(route('product.create'), [
             'name' => 'test',
             'type' => 'pizza',
             'isActive' => true,
@@ -144,7 +151,7 @@ class ProductsTest extends TestCase
         $adminUser = AdminUser::factory()->create();
         Sanctum::actingAs($adminUser, ['admin']);
 
-        $response = $this->put(route('product.update.put', ['id' => 1]), [
+        $response = $this->putJson(route('product.update.put', ['id' => 1]), [
             'name' => 'noVaild99',
             'type' => 'noVaild99',
             'isActive' => true,
@@ -161,18 +168,20 @@ class ProductsTest extends TestCase
         $adminUser = AdminUser::factory()->create();
         Sanctum::actingAs($adminUser, ['admin']);
 
-        $response = $this->delete(route('product.delete', ['id' => 100]));
+        $response = $this->deleteJson(route('product.delete', ['id' => 100]));
 
         $response->assertStatus(500);
     }
 
     public function test_delete_product_when_exists(): void
     {
+        $this->seed(ProductsSeeder::class);
+
         $adminUser = AdminUser::factory()->create();
         Sanctum::actingAs($adminUser, ['admin']);
 
-        $response = $this->delete(route('product.delete', ['id' => 1]));
+        $response = $this->deleteJson(route('product.delete', ['id' => 1]));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 }

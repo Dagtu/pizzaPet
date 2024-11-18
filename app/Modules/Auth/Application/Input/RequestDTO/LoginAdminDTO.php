@@ -8,8 +8,8 @@ use App\Modules\Auth\Domain\ValueObjects\PasswordValue;
 class LoginAdminDTO
 {
     public function __construct(
-        public EmailValue $email,
-        public PasswordValue $password
+        public readonly EmailValue $email,
+        public readonly PasswordValue $password
     ) {}
 
     public function getEmail(): ?string

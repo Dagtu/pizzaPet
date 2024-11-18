@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->boolean('isActive');
+            $table->boolean('is_active');
             $table->float('price');
-            $table->string('imageUrl')->nullable();
+            $table->string('image_url')->nullable();
             $table->mediumText('description')->nullable();
         });
     }

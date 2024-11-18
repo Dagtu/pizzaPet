@@ -4,6 +4,8 @@ namespace App\Modules\Auth\Infrastructure\Http\Controllers;
 
 use App\Modules\Auth\Application\DataMapper\AuthMapper;
 use App\Modules\Auth\Application\Services\AuthService;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -14,7 +16,7 @@ class AuthController extends Controller
         private readonly AuthService $authService
     ) {}
 
-    public function loginClient(Request $request): \Illuminate\Http\JsonResponse
+    public function loginClient(Request $request): JsonResponse
     {
         try {
             $loginClientDTO = $this->authMapper->mapLoginClientDTOFromRequest(
@@ -30,13 +32,13 @@ class AuthController extends Controller
                 'token_type' => 'Bearer',
                 'user_type' => 'client',
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['message' => $e->getMessage()]);
         }
 
     }
 
-    public function loginAdmin(Request $request): \Illuminate\Http\JsonResponse
+    public function loginAdmin(Request $request): JsonResponse
     {
         try {
             $loginAdminDTO = $this->authMapper->mapLoginAdminDTOFromRequest(
@@ -51,7 +53,7 @@ class AuthController extends Controller
                 'token_type' => 'Bearer',
                 'user_type' => 'admin',
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['message' => $e->getMessage()]);
         }
 

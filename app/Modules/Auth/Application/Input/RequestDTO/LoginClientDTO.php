@@ -4,24 +4,24 @@ namespace App\Modules\Auth\Application\Input\RequestDTO;
 
 use App\Modules\Auth\Domain\ValueObjects\EmailValue;
 use App\Modules\Auth\Domain\ValueObjects\PasswordValue;
-use App\Modules\Auth\Domain\ValueObjects\PhoneValue;
+use App\Modules\Common\Domain\ValueObjects\PhoneValue;
 
 class LoginClientDTO
 {
     public function __construct(
-        public PhoneValue|null $phone,
-        public EmailValue|null $email,
-        public PasswordValue $password
+        public readonly PasswordValue $password,
+        public readonly ?PhoneValue $phone = null,
+        public readonly ?EmailValue $email = null,
     ) {}
 
     public function getEmail(): ?string
     {
-        return !is_null($this->email) ? $this->email->getValue() : null;
+        return $this->email?->getValue();
     }
 
     public function getPhone(): ?string
     {
-        return !is_null($this->phone) ? $this->phone->getValue() : null;
+        return $this->phone?->getValue();
     }
 
     public function getPassword(): ?string

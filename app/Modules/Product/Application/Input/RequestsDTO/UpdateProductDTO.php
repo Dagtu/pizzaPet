@@ -2,10 +2,10 @@
 
 namespace App\Modules\Product\Application\Input\RequestsDTO;
 
+use App\Modules\Common\Domain\ValueObjects\IdValue;
+use App\Modules\Common\Domain\ValueObjects\IsActiveValue;
 use App\Modules\Product\Domain\ValueObjects\DescriptionValue;
-use App\Modules\Product\Domain\ValueObjects\IdValue;
 use App\Modules\Product\Domain\ValueObjects\ImageUrlValue;
-use App\Modules\Product\Domain\ValueObjects\IsActiveValue;
 use App\Modules\Product\Domain\ValueObjects\NameValue;
 use App\Modules\Product\Domain\ValueObjects\PriceValue;
 use App\Modules\Product\Domain\ValueObjects\TypeValue;
@@ -13,13 +13,13 @@ use App\Modules\Product\Domain\ValueObjects\TypeValue;
 class UpdateProductDTO
 {
     public function __construct(
-        public IdValue $id,
-        public NameValue $name,
-        public TypeValue $type,
-        public IsActiveValue $isActive,
-        public PriceValue $price,
-        public ImageUrlValue $imageUrl,
-        public DescriptionValue $description
+        public readonly IdValue $id,
+        public readonly NameValue $name,
+        public readonly TypeValue $type,
+        public readonly IsActiveValue $isActive,
+        public readonly PriceValue $price,
+        public readonly ImageUrlValue $imageUrl,
+        public readonly DescriptionValue $description
     ) {}
 
     public function getId(): int

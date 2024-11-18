@@ -4,7 +4,7 @@ namespace App\Modules\Product\Domain\ValueObjects;
 
 use InvalidArgumentException;
 
-class PriceValue implements ValueObjectInterface
+class PriceValue
 {
     private float $price;
 
@@ -14,10 +14,10 @@ class PriceValue implements ValueObjectInterface
         $this->price = $price;
     }
 
-    public function validateValue($value): void
+    private function validateValue(float $value): void
     {
-        if (!is_double($value)) {
-            throw new InvalidArgumentException('Value is not a double', 400);
+        if ($value < 0) {
+            throw new InvalidArgumentException('Price cannot be negative', 400);
         }
     }
 
