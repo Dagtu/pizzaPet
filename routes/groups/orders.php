@@ -4,16 +4,20 @@ use App\Modules\Order\Infrastructure\Http\Controllers\OrderAdminController;
 use App\Modules\Order\Infrastructure\Http\Controllers\OrderClientController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('order')
-    ->controller(OrderClientController::class)
-    ->middleware(['auth:sanctum'])
-    ->group(function () {
-        Route::post('/create-order', 'create')->name('order.client.create');
-    });
+Route::group([
+    'prefix' => 'order',
+    'as' => 'order.client.',
+    'middleware' => ['auth:sanctum'],
+    'controller' => OrderClientController::class,
+], function () {
+    Route::post('/create-order', 'create')->name('create');
+});
 
-Route::prefix('order')
-    ->controller(OrderAdminController::class)
-    ->middleware(['auth:sanctum', 'ability:admin'])
-    ->group(function () {
-        Route::post('/complete-order', 'completeOrder')->name('order.admin.complete');
-    });
+Route::group([
+    'prefix' => 'order',
+    'as' => 'order.admin.',
+    'middleware' => ['auth:sanctum', 'ability:admin'],
+    'controller' => OrderAdminController::class,
+], function () {
+    Route::post('/complete-order', 'completeOrder')->name('complete');
+});
