@@ -80,6 +80,8 @@ services:
             - POSTGRES_PASSWORD=laravel
         volumes:
             - './storage/docker/postgres:/var/lib/postgresql/data'
+        networks:
+            - pizza-network
 
     pizza-rabbitmq:
         container_name: 'pizza-rabbitmq'
