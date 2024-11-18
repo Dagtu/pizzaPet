@@ -4,7 +4,7 @@ namespace App\Modules\Product\Domain\ValueObjects;
 
 use InvalidArgumentException;
 
-class ImageUrlValue implements ValueObjectInterface
+class ImageUrlValue
 {
     private string $imageUrl;
 
@@ -14,7 +14,7 @@ class ImageUrlValue implements ValueObjectInterface
         $this->imageUrl = $imageUrl;
     }
 
-    public function validateValue($value): void
+    private function validateValue(string $value): void
     {
         if (!preg_match('/^https?:\/\/\S+$/', $value)) {
             throw new InvalidArgumentException('Invalid image URL format', 400);

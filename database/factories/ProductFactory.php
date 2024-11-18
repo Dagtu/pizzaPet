@@ -20,9 +20,9 @@ class ProductFactory extends Factory
         return [
             'name' => fake()->name(),
             'type' => fake()->randomElement([ProductTypes::Dessert, ProductTypes::Drink, ProductTypes::Pizza]),
-            'isActive' => fake()->boolean(),
+            'is_active' => fake()->boolean(),
             'price' => fake()->randomFloat(),
-            'imageUrl' => fake()->imageUrl(),
+            'image_url' => fake()->imageUrl(),
             'description' => fake()->sentence()
         ];
     }

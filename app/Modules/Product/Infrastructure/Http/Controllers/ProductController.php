@@ -3,14 +3,13 @@
 namespace App\Modules\Product\Infrastructure\Http\Controllers;
 
 use App\Modules\Product\Application\DataMapper\ProductMapper;
-use App\Modules\Product\Application\Exceptions\CreateProductInputException;
-use App\Modules\Product\Application\Exceptions\GetProductServiceException;
 use App\Modules\Product\Application\Input\Validators\CreateProductValidator;
 use App\Modules\Product\Application\Services\ProductService;
 use App\Modules\Product\Infrastructure\Presenters\ProductPresenter;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use PharIo\Version\Exception;
 
 class ProductController extends Controller
 {
@@ -21,10 +20,7 @@ class ProductController extends Controller
         private readonly ProductPresenter       $productPresenter
     ) {}
 
-    /**
-     * @throws GetProductServiceException
-     */
-    public function getProduct($id): \Illuminate\Http\JsonResponse
+    public function getProduct($id): JsonResponse
     {
         try {
             $getProductDTO = $this->productMapper->mapGetProductDTOFromRequest($id);
@@ -35,38 +31,39 @@ class ProductController extends Controller
         }
     }
 
-    public function getList(): \Illuminate\Http\JsonResponse
+    public function getList(): JsonResponse
     {
         $viewData = $this->productPresenter->getViewDataList($this->productService->getAllActive());
         return response()->json($viewData);
     }
 
-    public function getAdminList(): \Illuminate\Http\JsonResponse
+    public function getAdminList(): JsonResponse
     {
         $viewData = $this->productPresenter->getViewDataList($this->productService->getAll());
         return response()->json($viewData);
     }
 
-    /**
-     * @throws CreateProductInputException
-     */
-    public function createProduct(Request $request): \Illuminate\Http\JsonResponse
+    public function createProduct(Request $request): JsonResponse
     {
-        $createProductDTO = $this->productMapper->mapCreateProductDTOFromRequest(
-            $request->input('name'),
-            $request->input('type'),
-            $request->input('isActive'),
-            $request->input('price'),
-            $request->input('imageUrl'),
-            $request->input('description')
-        );
+        try {
+            $createProductDTO = $this->productMapper->mapCreateProductDTOFromRequest(
+                $request->input('name'),
+                $request->input('type'),
+                $request->input('isActive'),
+                $request->input('price'),
+                $request->input('imageUrl'),
+                $request->input('description')
+            );
 
-        $this->createProductValidator->validate($createProductDTO);
-        $viewData = $this->productPresenter->getViewDataCreate($this->productService->create($createProductDTO));
-        return response()->json($viewData, 201);
+            $this->createProductValidator->validate($createProductDTO);
+            $viewData = $this->productPresenter->getViewDataCreate($this->productService->create($createProductDTO));
+            return response()->json($viewData, 201);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], $e->getCode());
+        }
     }
 
-    public function updateProduct(Request $request): \Illuminate\Http\JsonResponse
+    public function updateProduct(Request $request): JsonResponse
     {
         try {
             $updateProductDTO = $this->productMapper->mapUpdateProductDTOFromRequest(
@@ -79,20 +76,20 @@ class ProductController extends Controller
                 $request->input('description')
             );
             $this->productService->updateById($updateProductDTO);
-            return response()->json('Product updated');
-        } catch (\Exception $e) {
-            return response()->json($e->getMessage(), $e->getCode());
+            return response()->json(['message' => 'Product updated']);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], $e->getCode());
         }
     }
 
-    public function deleteProduct(Request $request): \Illuminate\Http\JsonResponse
+    public function deleteProduct(Request $request): JsonResponse
     {
         try {
             $deleteProductDTO = $this->productMapper->mapDeleteProductDTOFromRequest($request->input('id'));
             $this->productService->deleteById($deleteProductDTO);
-            return response()->json('Product deleted');
-        } catch (\Exception $e) {
-            return response()->json($e->getMessage(), $e->getCode());
+            return response()->json(['message' => 'Product deleted']);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], $e->getCode());
         }
     }
 }

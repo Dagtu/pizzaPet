@@ -2,11 +2,11 @@
 
 namespace App\Modules\Product\Application\Input\RequestsDTO;
 
-use App\Modules\Product\Domain\ValueObjects\IdValue;
+use App\Modules\Common\Domain\ValueObjects\IdValue;
 
 class DeleteProductDTO
 {
-    public function __construct(public IdValue $id) {}
+    public function __construct(public readonly IdValue $id) {}
 
     public function getId(): int
     {
