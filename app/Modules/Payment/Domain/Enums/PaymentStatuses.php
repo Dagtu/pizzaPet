@@ -2,7 +2,7 @@
 
 namespace App\Modules\Payment\Domain\Enums;
 
-enum PaymentStatuses : string
+enum PaymentStatuses: string
 {
     case Pending = 'pending';
     case Success = 'success';

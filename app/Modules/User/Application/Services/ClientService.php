@@ -12,9 +12,10 @@ class ClientService
 {
     public function __construct(
         private readonly ClientRepositoryInterface $clientRepository
-    ) {}
+    ) {
+    }
 
-    public function addAddress(int $clientId, AddressDTO $address) : AddressEntity
+    public function addAddress(int $clientId, AddressDTO $address): AddressEntity
     {
         return $this->clientRepository->createAddress(
             $clientId,
@@ -26,7 +27,7 @@ class ClientService
         );
     }
 
-    public function addPhone(int $clientId, PhoneDTO $phone) : PhoneEntity
+    public function addPhone(int $clientId, PhoneDTO $phone): PhoneEntity
     {
         return $this->clientRepository->createPhone($clientId, $phone->getPhone());
     }

@@ -24,8 +24,7 @@ class ClientMapper
         string $street,
         int $houseNumber,
         int $apartment
-    ): AddressEntity
-    {
+    ): AddressEntity {
         return new AddressEntity($id, $clientId, $region, $city, $street, $houseNumber, $apartment);
     }
 
@@ -41,8 +40,7 @@ class ClientMapper
         int $houseNumber,
         int $apartment,
         ?int $id = null,
-    ): AddressDTO
-    {
+    ): AddressDTO {
         return new AddressDTO(
             new RegionValue($region),
             new CityValue($city),

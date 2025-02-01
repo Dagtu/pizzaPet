@@ -18,15 +18,14 @@ class ClientRepository implements ClientRepositoryInterface
         string $street,
         int $houseNumber,
         int $apartment
-    ): AddressEntity
-    {
+    ): AddressEntity {
         $clientAddress = ClientAddress::query()->create([
             'client_id' => $clientId,
             'region' => $region,
             'city' => $city,
             'street' => $street,
             'house_number' => $houseNumber,
-            'apartment' => $apartment
+            'apartment' => $apartment,
         ]);
 
         return ClientMapper::mapClientAddressToEntityFromDB(
@@ -44,7 +43,7 @@ class ClientRepository implements ClientRepositoryInterface
     {
         $clientPhone = ClientPhone::query()->create([
             'client_id' => $clientId,
-            'phone' => $phone
+            'phone' => $phone,
         ]);
 
         return ClientMapper::mapClientPhoneToEntityFromDB(

@@ -24,8 +24,7 @@ class OrderRepository implements OrderRepositoryInterface
         float $totalPrice,
         array $products,
         string $status
-    ) : OrderEntity
-    {
+    ): OrderEntity {
         DB::beginTransaction();
 
         try {
@@ -59,7 +58,7 @@ class OrderRepository implements OrderRepositoryInterface
         );
     }
 
-    public function updateStatus(int $id, string $status) : bool
+    public function updateStatus(int $id, string $status): bool
     {
         return Order::query()->where('id', $id)->update(['status' => $status]) > 0;
     }
@@ -72,8 +71,7 @@ class OrderRepository implements OrderRepositoryInterface
         string $orderStatusComplete,
         string $paymentStatusComplete,
         string $courierStatusComplete
-    ) : void
-    {
+    ): void {
         DB::beginTransaction();
 
         try {

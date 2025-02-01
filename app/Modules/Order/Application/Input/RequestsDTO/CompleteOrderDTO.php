@@ -6,5 +6,7 @@ use App\Modules\Common\Domain\ValueObjects\IdValue;
 
 class CompleteOrderDTO
 {
-    public function __construct(public readonly IdValue $id) {}
+    public function __construct(public readonly IdValue $id)
+    {
+    }
 }

@@ -13,8 +13,7 @@ class CourierMapper
         bool $isActive,
         string $status,
         int $locationId
-    ): CourierEntity
-    {
+    ): CourierEntity {
         return new CourierEntity(
             id: $id,
             name: $name,

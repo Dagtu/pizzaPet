@@ -11,13 +11,13 @@ use Illuminate\Support\Carbon;
 
 class PaymentRepository implements PaymentRepositoryInterface
 {
-    public function create(int $orderId, string $type, string $status) : PaymentEntity
+    public function create(int $orderId, string $type, string $status): PaymentEntity
     {
         $paymentModel = Payment::create([
             'time' => Carbon::now(),
             'order_id' => $orderId,
             'status' => $status,
-            'type' => $type
+            'type' => $type,
         ]);
 
         return PaymentMapper::mapToEntityFromDB(

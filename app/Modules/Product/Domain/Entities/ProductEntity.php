@@ -12,5 +12,6 @@ class ProductEntity
         public float $price,
         public string $imageUrl,
         public string $description
-    ) {}
+    ) {
+    }
 }

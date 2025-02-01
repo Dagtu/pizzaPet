@@ -10,7 +10,8 @@ class LoginAdminDTO
     public function __construct(
         public readonly EmailValue $email,
         public readonly PasswordValue $password
-    ) {}
+    ) {
+    }
 
     public function getEmail(): ?string
     {

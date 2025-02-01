@@ -14,9 +14,10 @@ class OrderAdminController extends Controller
     public function __construct(
         private readonly OrderService $orderService,
         private readonly OrderMapper $orderMapper
-    ) {}
+    ) {
+    }
 
-    public function completeOrder(Request $request) : JsonResponse
+    public function completeOrder(Request $request): JsonResponse
     {
         try {
             $request->validate(['id' => ['required', 'integer']]);

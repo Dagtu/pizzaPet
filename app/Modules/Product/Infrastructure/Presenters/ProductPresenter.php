@@ -17,7 +17,7 @@ class ProductPresenter
                 'isActive' => $productEntity->isActive,
                 'price' => $productEntity->price,
                 'imageUrl' => $productEntity->imageUrl,
-                'description' => $productEntity->description
+                'description' => $productEntity->description,
             ];
         }
 
@@ -27,7 +27,7 @@ class ProductPresenter
     public function getViewDataCreate(ProductEntity $productEntity): array
     {
         return [
-            'id' => $productEntity->id
+            'id' => $productEntity->id,
         ];
     }
 
@@ -40,7 +40,7 @@ class ProductPresenter
             'isActive' => $productEntity->isActive,
             'price' => $productEntity->price,
             'imageUrl' => $productEntity->imageUrl,
-            'description' => $productEntity->description
+            'description' => $productEntity->description,
         ];
     }
 }

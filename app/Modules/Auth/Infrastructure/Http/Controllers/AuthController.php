@@ -14,7 +14,8 @@ class AuthController extends Controller
     public function __construct(
         private readonly AuthMapper $authMapper,
         private readonly AuthService $authService
-    ) {}
+    ) {
+    }
 
     public function loginClient(Request $request): JsonResponse
     {

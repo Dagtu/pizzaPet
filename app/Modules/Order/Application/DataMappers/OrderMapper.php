@@ -21,8 +21,7 @@ class OrderMapper
         string $comment,
         float $totalPrice,
         string $status
-    ) : OrderEntity
-    {
+    ): OrderEntity {
         return new OrderEntity($id, $clientId, $clientAddressId, $clientPhoneId, $comment, $totalPrice, $status);
     }
 
@@ -33,8 +32,7 @@ class OrderMapper
         array $phone,
         string $comment,
         string $paymentType
-    ) : CreateOrderDTO
-    {
+    ): CreateOrderDTO {
         return new CreateOrderDTO(
             new IdValue($clientId),
             (new ProductMapper())->mapToProductsDTOFromRequest($products),

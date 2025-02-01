@@ -9,14 +9,15 @@ class ProductsDTO
      */
     public function __construct(
         public readonly array $products
-    ) {}
+    ) {
+    }
 
     public function getIds(): array
     {
         return array_column($this->getArray(), 'product_id');
     }
 
-    public function getArray() : array
+    public function getArray(): array
     {
         return array_map(function ($product) {
             return [

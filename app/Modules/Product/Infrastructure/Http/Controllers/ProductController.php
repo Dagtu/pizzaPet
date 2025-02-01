@@ -18,7 +18,8 @@ class ProductController extends Controller
         private readonly ProductMapper          $productMapper,
         private readonly CreateProductValidator $createProductValidator,
         private readonly ProductPresenter       $productPresenter
-    ) {}
+    ) {
+    }
 
     public function getProduct($id): JsonResponse
     {

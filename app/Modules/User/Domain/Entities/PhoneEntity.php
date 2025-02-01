@@ -8,5 +8,6 @@ class PhoneEntity
         public int $id,
         public int $clientId,
         public string $phone
-    ) {}
+    ) {
+    }
 }

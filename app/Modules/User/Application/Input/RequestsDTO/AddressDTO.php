@@ -18,39 +18,41 @@ class AddressDTO
         public readonly HouseNumberValue $houseNumber,
         public readonly ApartmentValue $apartment,
         public ?IdValue $id = null,
-    ) {}
+    ) {
+    }
 
     public function setAddressId($id): void
     {
-        $this->id = new IdValue($id);;
+        $this->id = new IdValue($id);
+        ;
     }
 
-    public function getAddressId() : ?int
+    public function getAddressId(): ?int
     {
         return $this->id?->getValue();
     }
 
-    public function getRegion() : string
+    public function getRegion(): string
     {
         return$this->region->getValue();
     }
 
-    public function getCity() : string
+    public function getCity(): string
     {
         return $this->city->getValue();
     }
 
-    public function getStreet() : string
+    public function getStreet(): string
     {
         return $this->street->getValue();
     }
 
-    public function getHouseNumber() : int
+    public function getHouseNumber(): int
     {
         return $this->houseNumber->getValue();
     }
 
-    public function getApartment() : int
+    public function getApartment(): int
     {
         return $this->apartment->getValue();
     }

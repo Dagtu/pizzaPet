@@ -14,7 +14,7 @@ interface OrderRepositoryInterface
         float $totalPrice,
         array $products,
         string $status
-    ) : OrderEntity;
+    ): OrderEntity;
 
-    public function updateStatus(int $id, string $status) : bool;
+    public function updateStatus(int $id, string $status): bool;
 }

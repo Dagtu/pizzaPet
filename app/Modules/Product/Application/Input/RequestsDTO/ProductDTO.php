@@ -12,7 +12,8 @@ class ProductDTO
         public readonly IdValue $id,
         public readonly PriceValue $price,
         public readonly QuantityValue $quantity
-    ) {}
+    ) {
+    }
 
     public function getId(): int
     {

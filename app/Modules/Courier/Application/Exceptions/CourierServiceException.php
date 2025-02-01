@@ -4,8 +4,8 @@ namespace App\Modules\Courier\Application\Exceptions;
 
 class CourierServiceException extends CourierException
 {
-    const CODE_COURIER_NOT_FOUND = 1;
-    const CODE_COURIER_ERROR_UPDATE_STATUS = 2;
+    public const CODE_COURIER_NOT_FOUND = 1;
+    public const CODE_COURIER_ERROR_UPDATE_STATUS = 2;
 
     protected static array $messages = [
         self::CODE_COURIER_NOT_FOUND => 'No available couriers',

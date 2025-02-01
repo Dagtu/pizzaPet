@@ -10,7 +10,9 @@ use App\Modules\User\Application\Input\RequestsDTO\AddressDTO;
 
 class CourierService
 {
-    public function __construct(private readonly CourierRepositoryInterface $courierRepository) {}
+    public function __construct(private readonly CourierRepositoryInterface $courierRepository)
+    {
+    }
 
     /**
      * Зачем передается адрес? Этот метод является лишь симуляцией.
@@ -18,7 +20,7 @@ class CourierService
      *
      * @throws CourierServiceException
      */
-    public function assign(AddressDTO $addressDTO) : CourierEntity
+    public function assign(AddressDTO $addressDTO): CourierEntity
     {
         $couriers = $this->courierRepository->findAvailable(CourierStatuses::Pending->value);
 

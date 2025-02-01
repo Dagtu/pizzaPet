@@ -18,11 +18,11 @@ class Product extends Model
         'is_active',
         'price',
         'image_url',
-        'description'
+        'description',
     ];
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     protected static function newFactory(): Factory

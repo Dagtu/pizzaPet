@@ -15,13 +15,14 @@ class PaymentService
     public function __construct(
         private readonly PaymentRepositoryInterface $paymentRepository,
         private readonly BankGatewayInterface $bankGateway
-    ) {}
+    ) {
+    }
 
     /**
      * Симуляция оплаты.
      * @throws PaymentServiceException
      */
-    public function processPayment(int $orderId, string $type) : PaymentEntity
+    public function processPayment(int $orderId, string $type): PaymentEntity
     {
         $paymentEntity = $this->paymentRepository->create($orderId, $type, PaymentStatuses::Pending->value);
 

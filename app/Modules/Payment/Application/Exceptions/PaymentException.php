@@ -6,5 +6,4 @@ use App\Modules\Common\Application\Exceptions\CustomException;
 
 class PaymentException extends CustomException
 {
-
 }

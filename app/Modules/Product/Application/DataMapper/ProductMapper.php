@@ -27,8 +27,7 @@ class ProductMapper
         string $price,
         string $imageUrl,
         string $description
-    ): CreateProductDTO
-    {
+    ): CreateProductDTO {
         return new CreateProductDTO(
             new NameValue($name),
             new TypeValue($type),
@@ -52,8 +51,7 @@ class ProductMapper
         float $price,
         string $imageUrl,
         string $description
-    ): ProductEntity
-    {
+    ): ProductEntity {
         return new ProductEntity(
             $id,
             $name,
@@ -73,8 +71,7 @@ class ProductMapper
         string $price,
         string $imageUrl,
         string $description
-    ): UpdateProductDTO
-    {
+    ): UpdateProductDTO {
         return new UpdateProductDTO(
             new IdValue((int) $id),
             new NameValue($name),

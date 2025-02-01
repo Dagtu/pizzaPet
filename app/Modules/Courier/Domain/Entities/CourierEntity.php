@@ -11,5 +11,6 @@ class CourierEntity
         public bool $isActive,
         public string $status,
         public int $locationId
-    ) {}
+    ) {
+    }
 }

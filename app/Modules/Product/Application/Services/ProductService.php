@@ -13,7 +13,9 @@ use App\Modules\Product\Domain\Entities\ProductEntity;
 
 class ProductService
 {
-    public function __construct(protected ProductRepositoryInterface $productRepository) {}
+    public function __construct(protected ProductRepositoryInterface $productRepository)
+    {
+    }
 
     public function getAll(): array
     {
@@ -87,7 +89,7 @@ class ProductService
         );
     }
 
-    public function checkExists(ProductsDTO $productsDTO) : bool
+    public function checkExists(ProductsDTO $productsDTO): bool
     {
         $productsCount = $this->productRepository->getCountActiveByIds($productsDTO->getIds());
 
@@ -98,7 +100,7 @@ class ProductService
         return true;
     }
 
-    public function checkPrice(ProductsDTO $productsDTO) : bool
+    public function checkPrice(ProductsDTO $productsDTO): bool
     {
         $products = $this->productRepository->getByIds($productsDTO->getIds());
 

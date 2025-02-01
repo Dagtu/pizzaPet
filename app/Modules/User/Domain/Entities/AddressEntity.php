@@ -12,5 +12,6 @@ class AddressEntity
         public string $street,
         public int $houseNumber,
         public int $apartment
-    ) {}
+    ) {
+    }
 }

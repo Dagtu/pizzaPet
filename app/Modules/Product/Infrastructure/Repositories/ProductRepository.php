@@ -9,7 +9,7 @@ use App\Modules\Product\Infrastructure\Models\Product;
 
 class ProductRepository implements ProductRepositoryInterface
 {
-    public function getAll() : array
+    public function getAll(): array
     {
         return Product::all()->map(fn ($productModel) => ProductMapper::mapToEntityFromDB(
             id: $productModel->id,
@@ -22,7 +22,7 @@ class ProductRepository implements ProductRepositoryInterface
         ))->toArray();
     }
 
-    public function getAllActive() : array
+    public function getAllActive(): array
     {
         return Product::query()
             ->where('is_active', true)
@@ -38,7 +38,7 @@ class ProductRepository implements ProductRepositoryInterface
             ))->toArray();
     }
 
-    public function getById(int $id) : ProductEntity|null
+    public function getById(int $id): ProductEntity|null
     {
         $productModel = Product::query()->where('id', $id)->first();
 
@@ -65,19 +65,18 @@ class ProductRepository implements ProductRepositoryInterface
         float $price,
         string $imageUrl,
         string $description
-    ) : int
-    {
+    ): int {
         return Product::query()->where('id', $id)->update([
             'name' => $name,
             'type' => $type,
             'is_active' => $isActive,
             'price' => $price,
             'image_url' => $imageUrl,
-            'description' => $description
+            'description' => $description,
         ]);
     }
 
-    public function deleteById(int $id) : bool
+    public function deleteById(int $id): bool
     {
         return Product::query()->where('id', $id)->delete();
     }
@@ -89,15 +88,14 @@ class ProductRepository implements ProductRepositoryInterface
         float $price,
         string $imageUrl,
         string $description
-    ): ProductEntity
-    {
+    ): ProductEntity {
         $productModel = Product::query()->create([
             'name' => $name,
             'type' => $type,
             'is_active' => $isActive,
             'price' => $price,
             'image_url' => $imageUrl,
-            'description' => $description
+            'description' => $description,
         ]);
 
         return ProductMapper::mapToEntityFromDB(
@@ -128,14 +126,14 @@ class ProductRepository implements ProductRepositoryInterface
                 price: $productModel->price,
                 imageUrl: $productModel->image_url,
                 description: $productModel->description
-        ))->toArray();
+            ))->toArray();
     }
 
     /**
      * @param array $getIds
      * @return int
      */
-    public function getCountActiveByIds(array $getIds) : int
+    public function getCountActiveByIds(array $getIds): int
     {
         return Product::query()
             ->where('is_active', true)

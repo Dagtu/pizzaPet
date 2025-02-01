@@ -10,5 +10,6 @@ class PaymentEntity
         public string $status,
         public string $type,
         public int $orderId
-    ) {}
+    ) {
+    }
 }

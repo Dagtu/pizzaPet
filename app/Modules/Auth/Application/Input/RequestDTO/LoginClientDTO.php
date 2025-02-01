@@ -12,7 +12,8 @@ class LoginClientDTO
         public readonly PasswordValue $password,
         public readonly ?PhoneValue $phone = null,
         public readonly ?EmailValue $email = null,
-    ) {}
+    ) {
+    }
 
     public function getEmail(): ?string
     {

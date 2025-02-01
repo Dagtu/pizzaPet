@@ -27,7 +27,8 @@ class OrderService
         private readonly ProductService           $productService,
         private readonly CourierService           $courierService,
         private readonly ClientService            $clientService,
-    ) {}
+    ) {
+    }
 
     /**
      * @throws OrderServiceException

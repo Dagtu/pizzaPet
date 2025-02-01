@@ -14,7 +14,7 @@ interface ClientRepositoryInterface
         string $street,
         int $houseNumber,
         int $apartment
-    ) : AddressEntity;
+    ): AddressEntity;
 
-    public function createPhone(int $clientId, string $phone) : PhoneEntity;
+    public function createPhone(int $clientId, string $phone): PhoneEntity;
 }

@@ -20,7 +20,8 @@ class UpdateProductDTO
         public readonly PriceValue $price,
         public readonly ImageUrlValue $imageUrl,
         public readonly DescriptionValue $description
-    ) {}
+    ) {
+    }
 
     public function getId(): int
     {

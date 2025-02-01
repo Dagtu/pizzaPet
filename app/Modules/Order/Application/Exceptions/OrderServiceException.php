@@ -4,12 +4,12 @@ namespace App\Modules\Order\Application\Exceptions;
 
 class OrderServiceException extends OrderException
 {
-    const CODE_PRODUCT_OUT_OF_STOCK = 1;
-    const CODE_PRICE_PRODUCT_CHANGED = 2;
-    const CODE_PAYMENT_FAILED = 3;
-    const CODE_COURIER_FAILED = 4;
-    const CODE_FAILED_UPDATE_ORDER_STATUS = 5;
-    const CODE_FAILED_COMPLETE_ORDER = 6;
+    public const CODE_PRODUCT_OUT_OF_STOCK = 1;
+    public const CODE_PRICE_PRODUCT_CHANGED = 2;
+    public const CODE_PAYMENT_FAILED = 3;
+    public const CODE_COURIER_FAILED = 4;
+    public const CODE_FAILED_UPDATE_ORDER_STATUS = 5;
+    public const CODE_FAILED_COMPLETE_ORDER = 6;
 
     public static array $messages = [
         self::CODE_PRODUCT_OUT_OF_STOCK => 'Product out of stock',

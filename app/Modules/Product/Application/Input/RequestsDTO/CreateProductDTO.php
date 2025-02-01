@@ -18,7 +18,8 @@ class CreateProductDTO
         public readonly PriceValue $price,
         public readonly ImageUrlValue $imageUrl,
         public readonly DescriptionValue $description
-    ) {}
+    ) {
+    }
 
     public function getName(): string
     {

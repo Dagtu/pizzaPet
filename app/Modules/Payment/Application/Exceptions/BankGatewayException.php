@@ -6,7 +6,7 @@ use App\Modules\Common\Application\Exceptions\CustomException;
 
 class BankGatewayException extends CustomException
 {
-    const CODE_BANK_GATEWAY_ERROR = 1;
+    public const CODE_BANK_GATEWAY_ERROR = 1;
 
     public static array $messages = [
         self::CODE_BANK_GATEWAY_ERROR => 'Bank gateway error',

@@ -15,7 +15,8 @@ class AuthService
     public function __construct(
         private readonly AuthRepositoryInterface $authRepository,
         private readonly TokenGeneratorInterface $tokenGenerator
-    ) {}
+    ) {
+    }
 
     /**
      * @throws InvalidCredentialsException

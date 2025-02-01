@@ -12,7 +12,8 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Client extends Authenticatable
 {
-    use HasFactory, HasApiTokens;
+    use HasFactory;
+    use HasApiTokens;
 
     public $timestamps = false;
 
@@ -25,7 +26,7 @@ class Client extends Authenticatable
     ];
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     public function getAddresses(): HasMany
@@ -36,11 +37,6 @@ class Client extends Authenticatable
     public function getPhones(): HasMany
     {
         return $this->hasMany(ClientPhone::class);
-    }
-
-    public function getCarts(): HasMany
-    {
-        return $this->hasMany(Cart::class);
     }
 
     protected static function newFactory(): Factory

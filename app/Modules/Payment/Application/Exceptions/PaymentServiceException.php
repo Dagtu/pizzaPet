@@ -4,8 +4,8 @@ namespace App\Modules\Payment\Application\Exceptions;
 
 class PaymentServiceException extends PaymentException
 {
-    const CODE_PAYMENT_FAILED = 1;
-    const CODE_ERROR_UPDATE_STATUS = 2;
+    public const CODE_PAYMENT_FAILED = 1;
+    public const CODE_ERROR_UPDATE_STATUS = 2;
 
     public static array $messages = [
         self::CODE_PAYMENT_FAILED => 'Payment failed',

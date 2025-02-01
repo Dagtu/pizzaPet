@@ -10,7 +10,8 @@ class PhoneDTO
     public function __construct(
         public PhoneValue $phone,
         public ?IdValue $id = null,
-    ) {}
+    ) {
+    }
 
     public function setPhoneId($id): void
     {

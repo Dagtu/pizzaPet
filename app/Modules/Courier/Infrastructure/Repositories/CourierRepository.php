@@ -24,7 +24,7 @@ class CourierRepository implements CourierRepositoryInterface
             ))->toArray();
     }
 
-    public function updateCourierStatus(int $id, string $status) : bool
+    public function updateCourierStatus(int $id, string $status): bool
     {
         return Courier::query()->where('id', $id)->update(['status' => $status]) > 0;
     }

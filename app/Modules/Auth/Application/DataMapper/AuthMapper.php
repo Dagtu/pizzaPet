@@ -14,8 +14,7 @@ class AuthMapper
         string $password,
         ?string $phone = null,
         ?string $email = null
-    ): LoginClientDTO
-    {
+    ): LoginClientDTO {
         return new LoginClientDTO(
             new PasswordValue($password),
             $phone ? new PhoneValue($phone) : null,

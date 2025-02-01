@@ -12,5 +12,6 @@ class OrderEntity
         public string $comment,
         public float $totalPrice,
         public string $status
-    ) {}
+    ) {
+    }
 }

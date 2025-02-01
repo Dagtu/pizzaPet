@@ -18,9 +18,10 @@ class CreateOrderDTO
         public readonly PhoneDTO $phone,
         public readonly CommentValue $comment,
         public readonly PaymentTypeValue $paymentType,
-    ) {}
+    ) {
+    }
 
-    public function getTotalPrice() : float
+    public function getTotalPrice(): float
     {
         $totalPrice = 0;
         foreach ($this->products->products as $product) {
@@ -30,7 +31,7 @@ class CreateOrderDTO
         return $totalPrice;
     }
 
-    public function getClientId() : int
+    public function getClientId(): int
     {
         return $this->clientId->getValue();
     }

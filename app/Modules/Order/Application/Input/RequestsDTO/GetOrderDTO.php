@@ -6,5 +6,7 @@ use App\Modules\Common\Domain\ValueObjects\IdValue;
 
 class GetOrderDTO
 {
-    public function __construct(public readonly IdValue $clientId) {}
+    public function __construct(public readonly IdValue $clientId)
+    {
+    }
 }

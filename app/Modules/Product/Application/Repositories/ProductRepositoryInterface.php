@@ -6,11 +6,11 @@ use App\Modules\Product\Domain\Entities\ProductEntity;
 
 interface ProductRepositoryInterface
 {
-    public function getAll() : array;
+    public function getAll(): array;
 
-    public function getAllActive() : array;
+    public function getAllActive(): array;
 
-    public function getById(int $id) : ?ProductEntity;
+    public function getById(int $id): ?ProductEntity;
 
     public function updateById(
         int $id,
@@ -20,9 +20,9 @@ interface ProductRepositoryInterface
         float $price,
         string $imageUrl,
         string $description
-    ) : int;
+    ): int;
 
-    public function deleteById(int $id) : bool;
+    public function deleteById(int $id): bool;
 
     public function create(
         string $name,
@@ -31,9 +31,9 @@ interface ProductRepositoryInterface
         float $price,
         string $imageUrl,
         string $description
-    ) : ProductEntity;
+    ): ProductEntity;
 
-    public function getByIds(array $ids) : array;
+    public function getByIds(array $ids): array;
 
-    public function getCountActiveByIds(array $getIds) : int;
+    public function getCountActiveByIds(array $getIds): int;
 }
