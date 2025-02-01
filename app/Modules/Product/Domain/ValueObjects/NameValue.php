@@ -4,7 +4,7 @@ namespace App\Modules\Product\Domain\ValueObjects;
 
 use InvalidArgumentException;
 
-class NameValue implements ValueObjectInterface
+class NameValue
 {
     private string $name;
 
@@ -14,11 +14,7 @@ class NameValue implements ValueObjectInterface
         $this->name = $name;
     }
 
-    /**
-     * @param $value
-     * @return void
-     */
-    public function validateValue($value): void
+    private function validateValue(string $value): void
     {
         if (!preg_match("/^[A-zА-я\s]*$/u", $value)) {
             throw new InvalidArgumentException('Name contains invalid characters', 400);

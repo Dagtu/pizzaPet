@@ -2,9 +2,8 @@
 
 namespace App\Modules\Auth\Domain\ValueObjects;
 
-class PasswordValue implements ValueObjectInterface
+class PasswordValue
 {
-
     private string $password;
 
     public function __construct(string $value)
@@ -13,7 +12,7 @@ class PasswordValue implements ValueObjectInterface
         $this->password = $value;
     }
 
-    public function validateValue($value): void
+    private function validateValue(string $value): void
     {
         $minLength = 8;
         $maxLength = 128;

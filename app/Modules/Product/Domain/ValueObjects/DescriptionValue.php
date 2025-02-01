@@ -4,7 +4,7 @@ namespace App\Modules\Product\Domain\ValueObjects;
 
 use InvalidArgumentException;
 
-class DescriptionValue implements ValueObjectInterface
+class DescriptionValue
 {
     private string $description;
 
@@ -14,7 +14,7 @@ class DescriptionValue implements ValueObjectInterface
         $this->description = $description;
     }
 
-    public function validateValue($value): void
+    private function validateValue(string $value): void
     {
         if (!preg_match('/^[А-яA-z.,!?:"\s]+$/u', $value)) {
             throw new InvalidArgumentException('Description contains invalid characters', 400);

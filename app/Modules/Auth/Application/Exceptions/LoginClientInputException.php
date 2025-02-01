@@ -2,7 +2,8 @@
 
 namespace App\Modules\Auth\Application\Exceptions;
 
-class LoginClientInputException extends \Exception
-{
+use Exception;
 
+class LoginClientInputException extends Exception
+{
 }

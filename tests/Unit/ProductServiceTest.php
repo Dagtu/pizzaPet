@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Modules\Product\Application\Exceptions\DeleteProductServiceException;
-use App\Modules\Product\Application\Exceptions\GetProductServiceException;
-use App\Modules\Product\Application\Exceptions\UpdateProductServiceException;
+use App\Modules\Common\Domain\ValueObjects\IdValue;
+use App\Modules\Common\Domain\ValueObjects\IsActiveValue;
+use App\Modules\Product\Application\Exceptions\ProductServiceException;
 use App\Modules\Product\Application\Input\RequestsDTO\DeleteProductDTO;
 use App\Modules\Product\Application\Input\RequestsDTO\GetProductDTO;
 use App\Modules\Product\Application\Input\RequestsDTO\UpdateProductDTO;
@@ -12,9 +12,7 @@ use App\Modules\Product\Application\Services\ProductService;
 use App\Modules\Product\Domain\Entities\ProductEntity;
 use App\Modules\Product\Domain\Enums\ProductTypes;
 use App\Modules\Product\Domain\ValueObjects\DescriptionValue;
-use App\Modules\Product\Domain\ValueObjects\IdValue;
 use App\Modules\Product\Domain\ValueObjects\ImageUrlValue;
-use App\Modules\Product\Domain\ValueObjects\IsActiveValue;
 use App\Modules\Product\Domain\ValueObjects\NameValue;
 use App\Modules\Product\Domain\ValueObjects\PriceValue;
 use App\Modules\Product\Domain\ValueObjects\TypeValue;
@@ -40,11 +38,11 @@ class ProductServiceTest extends TestCase
     }
 
     /**
-     * @throws GetProductServiceException
+     * @throws ProductServiceException
      */
     public function test_get_by_id_returns_product_when_exists(): void
     {
-        $fakeProduct = new ProductEntity(
+        $fakeProductEntity = new ProductEntity(
             id: 1,
             name: 'Test Product',
             type: ProductTypes::Dessert->value,
@@ -54,13 +52,12 @@ class ProductServiceTest extends TestCase
             description: 'Test Description, test description'
         );
 
-        $getProductDTO = new GetProductDTO(new IdValue(1));
-
         $this->productRepositoryMock->expects($this->once())
             ->method('getById')
             ->with(1)
-            ->willReturn($fakeProduct);
+            ->willReturn($fakeProductEntity);
 
+        $getProductDTO = new GetProductDTO(new IdValue(1));
         $result = $this->productService->getById($getProductDTO);
 
         $this->assertInstanceOf(ProductEntity::class, $result);
@@ -68,6 +65,9 @@ class ProductServiceTest extends TestCase
         $this->assertEquals('Test Product', $result->name);
     }
 
+    /**
+     * @throws ProductServiceException
+     */
     public function test_get_by_id_throws_exception_when_product_not_found()
     {
         $getProductDTO = new GetProductDTO(new IdValue(999));
@@ -77,13 +77,16 @@ class ProductServiceTest extends TestCase
             ->with(999)
             ->willReturn(null);
 
-        $this->expectException(GetProductServiceException::class);
+        $this->expectException(ProductServiceException::class);
         $this->expectExceptionMessage('Product not found');
         $this->expectExceptionCode(404);
 
         $this->productService->getById($getProductDTO);
     }
 
+    /**
+     * @throws ProductServiceException
+     */
     public function test_update_by_id_when_product_exists()
     {
         $updateProductDTO = new UpdateProductDTO(
@@ -107,6 +110,9 @@ class ProductServiceTest extends TestCase
         $this->assertEquals(1, $result);
     }
 
+    /**
+     * @throws ProductServiceException
+     */
     public function test_update_by_id_throws_exception_when_product_not_found()
     {
         $updateProductDTO = new UpdateProductDTO(
@@ -124,13 +130,16 @@ class ProductServiceTest extends TestCase
             ->with(999, 'Update name value', ProductTypes::Dessert->value, true, 100.02, 'http://example.com/test-image.jpg', 'Test Description, test description')
             ->willReturn(0);
 
-        $this->expectException(UpdateProductServiceException::class);
+        $this->expectException(ProductServiceException::class);
         $this->expectExceptionMessage('Product not found');
         $this->expectExceptionCode(404);
 
         $this->productService->updateById($updateProductDTO);
     }
 
+    /**
+     * @throws ProductServiceException
+     */
     public function test_delete_by_id_when_product_exists()
     {
         $deleteProductDTO = new DeleteProductDTO(new IdValue(1));
@@ -146,6 +155,9 @@ class ProductServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
+    /**
+     * @throws ProductServiceException
+     */
     public function test_delete_by_id_throws_exception_when_product_not_found()
     {
         $deleteProductDTO = new DeleteProductDTO(new IdValue(999));
@@ -155,7 +167,7 @@ class ProductServiceTest extends TestCase
             ->with(999)
             ->willReturn(false);
 
-        $this->expectException(DeleteProductServiceException::class);
+        $this->expectException(ProductServiceException::class);
         $this->expectExceptionMessage('Error deleting product');
         $this->expectExceptionCode(500);
 

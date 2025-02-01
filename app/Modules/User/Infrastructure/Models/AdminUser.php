@@ -10,7 +10,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AdminUser extends Authenticatable
 {
-    use HasFactory, HasApiTokens;
+    use HasFactory;
+    use HasApiTokens;
 
     public $timestamps = false;
 
@@ -18,11 +19,11 @@ class AdminUser extends Authenticatable
         'email',
         'password',
         'role',
-        'isActive'
+        'is_active',
     ];
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     protected static function newFactory(): Factory

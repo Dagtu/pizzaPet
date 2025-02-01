@@ -3,64 +3,53 @@
 namespace App\Modules\Product\Infrastructure\Repositories;
 
 use App\Modules\Product\Application\DataMapper\ProductMapper;
+use App\Modules\Product\Application\Repositories\ProductRepositoryInterface;
 use App\Modules\Product\Domain\Entities\ProductEntity;
-use App\Modules\Product\Domain\Repositories\ProductRepositoryInterface;
 use App\Modules\Product\Infrastructure\Models\Product;
 
 class ProductRepository implements ProductRepositoryInterface
 {
-    public function getAll() : array
+    public function getAll(): array
     {
-        $productsModels = Product::all();
+        return Product::all()->map(fn ($productModel) => ProductMapper::mapToEntityFromDB(
+            id: $productModel->id,
+            name: $productModel->name,
+            type: $productModel->type,
+            isActive: $productModel->is_active,
+            price: $productModel->price,
+            imageUrl: $productModel->image_url,
+            description: $productModel->description
+        ))->toArray();
+    }
 
-        $products = [];
-        foreach ($productsModels as $productModel) {
-            $products[] = ProductMapper::mapToEntityFromDB(
+    public function getAllActive(): array
+    {
+        return Product::query()
+            ->where('is_active', true)
+            ->get()
+            ->map(fn ($productModel) => ProductMapper::mapToEntityFromDB(
                 id: $productModel->id,
                 name: $productModel->name,
                 type: $productModel->type,
-                isActive: $productModel->isActive,
+                isActive: $productModel->is_active,
                 price: $productModel->price,
-                imageUrl: $productModel->imageUrl,
+                imageUrl: $productModel->image_url,
                 description: $productModel->description
-            );
-        }
-
-        return $products;
+            ))->toArray();
     }
 
-    public function getAllActive() : array
+    public function getById(int $id): ProductEntity|null
     {
-        $productsModels = Product::query()->where('isActive', '=', true)->get();
-
-        $products = [];
-        foreach ($productsModels as $productModel) {
-            $products[] = ProductMapper::mapToEntityFromDB(
-                id: $productModel->id,
-                name: $productModel->name,
-                type: $productModel->type,
-                isActive: $productModel->isActive,
-                price: $productModel->price,
-                imageUrl: $productModel->imageUrl,
-                description: $productModel->description
-            );
-        }
-
-        return $products;
-    }
-
-    public function getById(int $id) : ProductEntity|null
-    {
-        $productModel = Product::query()->find($id);
+        $productModel = Product::query()->where('id', $id)->first();
 
         if ($productModel !== null) {
             return ProductMapper::mapToEntityFromDB(
                 id: $productModel->id,
                 name: $productModel->name,
                 type: $productModel->type,
-                isActive: $productModel->isActive,
+                isActive: $productModel->is_active,
                 price: $productModel->price,
-                imageUrl: $productModel->imageUrl,
+                imageUrl: $productModel->image_url,
                 description: $productModel->description
             );
         }
@@ -76,19 +65,18 @@ class ProductRepository implements ProductRepositoryInterface
         float $price,
         string $imageUrl,
         string $description
-    ) : int
-    {
+    ): int {
         return Product::query()->where('id', $id)->update([
             'name' => $name,
             'type' => $type,
-            'isActive' => $isActive,
+            'is_active' => $isActive,
             'price' => $price,
-            'imageUrl' => $imageUrl,
-            'description' => $description
+            'image_url' => $imageUrl,
+            'description' => $description,
         ]);
     }
 
-    public function deleteById(int $id) : bool
+    public function deleteById(int $id): bool
     {
         return Product::query()->where('id', $id)->delete();
     }
@@ -100,25 +88,56 @@ class ProductRepository implements ProductRepositoryInterface
         float $price,
         string $imageUrl,
         string $description
-    ): ProductEntity
-    {
+    ): ProductEntity {
         $productModel = Product::query()->create([
             'name' => $name,
             'type' => $type,
-            'isActive' => $isActive,
+            'is_active' => $isActive,
             'price' => $price,
-            'imageUrl' => $imageUrl,
-            'description' => $description
+            'image_url' => $imageUrl,
+            'description' => $description,
         ]);
 
         return ProductMapper::mapToEntityFromDB(
             id: $productModel->id,
             name : $productModel->name,
             type : $productModel->type,
-            isActive: $productModel->isActive,
+            isActive: $productModel->is_active,
             price: $productModel->price,
-            imageUrl: $productModel->imageUrl,
+            imageUrl: $productModel->image_url,
             description: $productModel->description
         );
+    }
+
+    /**
+     * @param array $ids
+     * @return array
+     */
+    public function getByIds(array $ids): array
+    {
+        return Product::query()
+            ->whereIn('id', $ids)
+            ->get()
+            ->map(fn ($productModel) => ProductMapper::mapToEntityFromDB(
+                id: $productModel->id,
+                name: $productModel->name,
+                type: $productModel->type,
+                isActive: $productModel->is_active,
+                price: $productModel->price,
+                imageUrl: $productModel->image_url,
+                description: $productModel->description
+            ))->toArray();
+    }
+
+    /**
+     * @param array $getIds
+     * @return int
+     */
+    public function getCountActiveByIds(array $getIds): int
+    {
+        return Product::query()
+            ->where('is_active', true)
+            ->whereIn('id', $getIds)
+            ->count();
     }
 }

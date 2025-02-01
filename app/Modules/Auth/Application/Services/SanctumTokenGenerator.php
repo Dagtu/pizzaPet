@@ -7,7 +7,7 @@ use App\Modules\Auth\Domain\Entities\AuthenticatableInterface;
 
 class SanctumTokenGenerator implements TokenGeneratorInterface
 {
-    const DEFAULT_TOKEN_NAME = 'auth_token';
+    public const DEFAULT_TOKEN_NAME = 'auth_token';
 
     public function generateToken(AuthenticatableInterface $user, array $abilities = []): string
     {

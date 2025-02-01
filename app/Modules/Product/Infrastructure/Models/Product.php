@@ -15,14 +15,14 @@ class Product extends Model
     protected $fillable = [
         'name',
         'type',
-        'isActive',
+        'is_active',
         'price',
-        'imageUrl',
-        'description'
+        'image_url',
+        'description',
     ];
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     protected static function newFactory(): Factory

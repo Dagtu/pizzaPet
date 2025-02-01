@@ -5,7 +5,7 @@ namespace App\Modules\Product\Domain\ValueObjects;
 use App\Modules\Product\Domain\Enums\ProductTypes;
 use InvalidArgumentException;
 
-class TypeValue implements ValueObjectInterface
+class TypeValue
 {
     private string $type;
 
@@ -15,20 +15,13 @@ class TypeValue implements ValueObjectInterface
         $this->type = $type;
     }
 
-    /**
-     * @param $value
-     * @return void
-     */
-    public function validateValue($value): void
+    private function validateValue(string $value): void
     {
         if (!ProductTypes::tryFrom($value)) {
             throw new InvalidArgumentException('Type contains invalid value', 400);
         }
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->type;

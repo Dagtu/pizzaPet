@@ -2,7 +2,7 @@
 
 namespace App\Modules\Product\Domain\Enums;
 
-enum ProductTypes : string
+enum ProductTypes: string
 {
     case Pizza = 'pizza';
     case Drink = 'drink';

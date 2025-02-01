@@ -2,9 +2,8 @@
 
 namespace App\Modules\Auth\Domain\ValueObjects;
 
-class EmailValue implements ValueObjectInterface
+class EmailValue
 {
-
     private string $email;
 
     public function __construct(string $value)
@@ -13,7 +12,7 @@ class EmailValue implements ValueObjectInterface
         $this->email = $value;
     }
 
-    public function validateValue($value): void
+    private function validateValue(string $value): void
     {
         $pattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
 
